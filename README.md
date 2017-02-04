@@ -20,7 +20,7 @@ pyenv
 
 ### python2系の最新版をインストール
 ```sh
-pyenv install 2.7.13
+pyenv install 3.5.3
 ```
 
 ### vertualenvのインストール
@@ -43,8 +43,8 @@ git clone git@github.com:hot-coffee-hd17/raspberrypi.git
 cd raspberrypi
 
 # 仮想環境を作成
-pyenv virtualenv 2.7.13 raspi_2.7.13
-pyenv local raspi_2.7.13
+pyenv virtualenv 3.5.3 raspi_3.5.3
+pyenv local raspi_3.5.3
 
 # 必要モジュールのインストール（一部エラー出るが気にしない）
 pip install -r requirements.txt
@@ -80,5 +80,3 @@ http://nosix.hatenablog.com/entry/2016/12/22/163640
 - ディレクトリ構成決める
 - ラズパイ上の環境にできるだけ合わせる
   - ラズパイ上で`pip freeze`を実行して確認
-- RPi.GPIOモジュールはpython3系でしか動かないっぽい？
-  - 開発に必要そうならpython3系の環境に変更する必要がある。
