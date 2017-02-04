@@ -8,7 +8,7 @@ try:
     import picamera
 except Exception:
     print('no raspi.');
-#import gesture
+from raspi import gesture
 
 class Camera(object):
     def __init__(self):
@@ -35,8 +35,12 @@ class Camera(object):
 
         # 3秒数える
         for i in range(60):
-            # TODO ジェスチャー取得
-            # TODO カメラのジェスチャーでなくなったらLED消灯して終了
+            # ジェスチャー取得
+            class_name = gesture.judge()
+            # カメラのジェスチャーでなくなったらLED消灯して終了
+            if class_name != 'Camera':
+                # TODO 青LED消灯
+                return
 
             sleep(0.05)
         
