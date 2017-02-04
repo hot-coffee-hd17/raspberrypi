@@ -12,7 +12,7 @@ class BoneSound :
   def __init__(self):
     # チャンク数を指定
     self.CHUNK = 1024
-    self.FILENAME = "/Users/tmk-mac/Development/raspberrypi/resource/decision1.wav"
+    self.FILENAME = "../../resource/decision1.wav"
     self.wf = wave.open(self.FILENAME, "rb")
 
     # PyAudioのインスタンスを生成
