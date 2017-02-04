@@ -19,7 +19,7 @@ class Recorder(object):
             class_name = gesture.judge()
             if class_name != 'Recorder':
                 break
-            sleep(0.05)
+            sleep(1)
 
     def action(self):
         print('record action')
