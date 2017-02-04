@@ -16,7 +16,7 @@ class Camera(object):
         
         camera = picamera.PiCamera()
         camera.capture(os.path.abspath(os.path.dirname(__file__)) 
-            + '/../resources/camera/'
+            + '/../../resource/camera/'
             + date
             + '.jpg'
             )

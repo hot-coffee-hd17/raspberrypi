@@ -29,7 +29,7 @@ class Recorder(object):
     def action(self):
         print('record action')
 
-        self.wf = wave.open(os.path.abspath(os.path.dirname(__file__)) + '/../resources/record.wav', 'w')
+        self.wf = wave.open(os.path.abspath(os.path.dirname(__file__)) + '/../../resource/record.wav', 'w')
         self.wf.setsampwidth(2)
         self.wf.setframerate(44100)
         self.wf.setnchannels(2)
