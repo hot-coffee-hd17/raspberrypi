@@ -42,7 +42,8 @@ class Recorder(object):
         frames = []
         while True:
             class_name = gesture.judge()
-            if class_name != 'Recorder':
+            #if class_name != 'Recorder':
+            if len(frames) > 500:
                 break
             data = stream.read(CHUNK)
             frames.append(data)
