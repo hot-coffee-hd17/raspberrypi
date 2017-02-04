@@ -1,48 +1,57 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import pyaudio
-import sys
-import time
 import wave
-from multiprocessing import Process
-
-RATE = 44100 # サンプリングレート、マイク性能に依存
-CHUNK = 1024
+from raspi import sensor
 
 class Recorder(object):
     def __init__(self):
-        # pyaudio
-        self.p = pyaudio.PyAudio()
+        self.wf = None
 
-        # マイクからデータ取得
-        self.stream = self.p.open(
-            format = pyaudio.paInt16,
-            channels = 1,
-            rate = RATE,
-            input = True,
-            frames_per_buffer = CHUNK
-            )
+    def callback(self, in_data, frame_count, time_info, status):
+        self.wf.writeframes(in_data)
+        return (None, pyaudio.paContinue)
 
-        # 録音データを保存する
-        self.all = []
+    def judge_finish(self):
+        while True:
+            # センサの値取得
+            sensor_values = sensor.get_values()
+            
+            # 終了ジェスチャーを検知
+            # TODO ここに終了を検知するコードを追加
+            break
 
-    def record(self):
-        for i in range(0, int(RATE / CHUNK * 3)):
-            data = self.stream.read(CHUNK)
-            self.all.append(data)
+        # 今は3秒スリープするだけ
+        import time
+        time.sleep(3)
 
     def action(self):
-        print('record!')
+        print('record action')
+
+        self.wf = wave.open('record.wav', 'w')
+        self.wf.setsampwidth(2)
+        self.wf.setframerate(44100)
+        self.wf.setnchannels(2)
+
+        p = pyaudio.PyAudio()
+
+        input_device_index = 0
+
+        stream = p.open(
+            format = p.get_format_from_width(self.wf.getsampwidth()),
+            channels = self.wf.getnchannels(),
+            rate = self.wf.getframerate(),
+            input_device_index = input_device_index,
+            input = True,
+            stream_callback = self.callback
+            )
+
+        stream.start_stream()
+
+        self.judge_finish()
         
-        self.record()
-         
-        self.stream.close()
-        data = b''.join(self.all)
-        out = wave.open('mono.wav','w')
-        out.setnchannels(1) #mono
-        out.setsampwidth(2) #16bits
-        out.setframerate(RATE)
-        out.writeframes(data)
-        out.close()
-         
-        self.p.terminate()
+        stream.stop_stream()
+        stream.close()
+
+        p.terminate()
+        self.wf.close()
