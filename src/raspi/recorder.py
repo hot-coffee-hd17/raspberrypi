@@ -36,11 +36,11 @@ class Recorder(object):
 
         p = pyaudio.PyAudio()
 
-        input_device_index = 0
+        input_device_index = 2
 
         stream = p.open(
             format = p.get_format_from_width(self.wf.getsampwidth()),
-            channels = 0,
+            channels = self.wf.getnchannels(),
             rate = self.wf.getframerate(),
             input_device_index = input_device_index,
             input = True,
