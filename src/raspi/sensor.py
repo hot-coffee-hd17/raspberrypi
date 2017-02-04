@@ -38,7 +38,7 @@ def get_values():
     try:
         import spidev
         pressure = from_sensors()
-    except:
+    except Exception:
         pressure = rand_val()
 
     # 正規化して返す
