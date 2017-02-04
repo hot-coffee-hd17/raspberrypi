@@ -29,7 +29,7 @@ class Camera(object):
         print('Auth Done!')
 
     def action(self):
-        print('Camera Captured')
+        print('Camera action')
         
         # TODO 青LED点滅開始
 
@@ -41,6 +41,8 @@ class Camera(object):
             sleep(0.05)
         
         # TODO 青LEDを消灯、赤LED点灯
+        
+        print('capture')
 
         # 現在時刻取得（画像ファイル名に利用）
         date = datetime.now().strftime('%Y%m%d-%H%M%S')
@@ -56,6 +58,8 @@ class Camera(object):
         
         # TODO 赤消灯、青点灯
         
+        print('captured')
+
         # ツイート
         self.tweet()
 
