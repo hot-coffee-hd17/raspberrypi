@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import numpy as np
+try:
+    import spidev
+except:
+    pass
 
 # 圧力センサーの最大値・最小値（正規化に利用）
-PRESS_MAX = 100
+PRESS_MAX = 1000
 PRESS_MIN = 0
 
 def rand_val():
@@ -13,8 +17,6 @@ def rand_val():
 
 
 def from_sensors():
-    import spidev
-
     # 人差し指
     spi1 = spidev.SpiDev()
     spi1.open(0, 0)
@@ -26,10 +28,10 @@ def from_sensors():
     # spi2.open(0, 0)
     # res2 = spi2.xfer2([0x68, 0x00])
     # val2 = (res1[0] * 256 + res2[1]) & 0x3ff
-    #
-    # return np.array([val1, val2])
-
-    return np.array([val1, val1])
+    from random import randint
+    val2 = randint(PRESS_MIN, PRESS_MAX)
+    
+    return np.array([val1, val2])
 
 
 def get_values():
@@ -37,8 +39,11 @@ def get_values():
     全てのセンサーから値を取得して返す
     人差し指・小指の順
     '''
-    pressure = rand_val()
-
+    try:
+        pressure = from_sensors()
+    except Exception:
+        pressure = rand_val()
+    
     # 正規化して返す
     return list((pressure - PRESS_MIN) / (PRESS_MAX - PRESS_MIN))
 
