@@ -27,7 +27,7 @@ class Recorder(object):
         FORMAT = pyaudio.paInt16
         CHANNELS = 1        #モノラル
         RATE = 44100        #サンプルレート
-        CHUNK = 2**11       #データ点数
+        CHUNK = 2**10       #データ点数
         RECORD_SECONDS = 5 #録音する時間の長さ
         WAVE_OUTPUT_FILENAME = os.path.abspath(os.path.dirname(__file__)) + '/../../resource/record.wav'
 
