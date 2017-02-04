@@ -32,7 +32,7 @@ class Recorder(object):
         self.wf = wave.open(os.path.abspath(os.path.dirname(__file__)) + '/../../resource/record.wav', 'w')
         self.wf.setsampwidth(2)
         self.wf.setframerate(44100)
-        self.wf.setnchannels(2)
+        self.wf.setnchannels(0)
 
         p = pyaudio.PyAudio()
 
