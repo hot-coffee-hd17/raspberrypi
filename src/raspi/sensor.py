@@ -13,8 +13,6 @@ def rand_val():
 
 
 def from_sensors():
-    import spidev
-
     # 人差し指
     spi1 = spidev.SpiDev()
     spi1.open(0, 0)
@@ -37,7 +35,11 @@ def get_values():
     全てのセンサーから値を取得して返す
     人差し指・小指の順
     '''
-    pressure = from_sensors()
+    try:
+        import spidev
+        pressure = from_sensors()
+    except:
+        pressure = rand_val()
 
     # 正規化して返す
     return list((pressure - PRESS_MIN) / (PRESS_MAX - PRESS_MIN))
