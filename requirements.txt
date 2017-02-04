@@ -7,3 +7,4 @@ pyparsing==2.1.10
 pyserial==3.2.1
 RPi==0.1.0
 six==1.10.0
+tweepy==3.5.0
