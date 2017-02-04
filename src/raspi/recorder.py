@@ -5,6 +5,7 @@ import wave
 import os
 from time import sleep
 from raspi import gesture
+from raspi.led import LED
 
 class Recorder(object):
     def __init__(self):
@@ -23,6 +24,9 @@ class Recorder(object):
 
     def action(self):
         print('record action')
+
+        led = LED()
+        led.red_led_on()
 
         FORMAT = pyaudio.paInt16
         CHANNELS = 1        #モノラル
@@ -58,6 +62,9 @@ class Recorder(object):
         waveFile.setframerate(RATE)
         waveFile.writeframes(b''.join(frames))
         waveFile.close()
+
+        led.red_led_off()
+        led.cleanup()
 
         # self.wf = wave.open(os.path.abspath(os.path.dirname(__file__)) + '/../../resource/record.wav', 'w')
         # self.wf.setsampwidth(2)
