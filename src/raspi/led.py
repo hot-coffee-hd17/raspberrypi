@@ -9,8 +9,8 @@ class LED:
         self.RED_LED_GPIO_PIN = 10
         self.BLUE_LED_GPIO_PIN = 11
 
-        RED_LED_GPIO.setmode(RED_LED_GPIO.BOARD)
-        BLUE_LED_GPIO.setmode(BLUE_LED_GPIO.BOARD)
+        RED_LED_GPIO.setmode(RED_LED_GPIO.BCM)
+        BLUE_LED_GPIO.setmode(BLUE_LED_GPIO.BCM)
         RED_LED_GPIO.setup(self.RED_LED_GPIO_PIN, RED_LED_GPIO.OUT)
         BLUE_LED_GPIO.setup(self.BLUE_LED_GPIO_PIN, BLUE_LED_GPIO.OUT)
 
