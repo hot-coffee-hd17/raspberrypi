@@ -26,8 +26,8 @@ class Camera(object):
                 + '.jpg'
                 )
             camera.close()
-        except Exception:
-            pass
+        except Exception as e:
+            print(e, 'error occurred')
 
 
 def main():
