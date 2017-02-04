@@ -7,7 +7,7 @@ except:
     pass
 
 # 圧力センサーの最大値・最小値（正規化に利用）
-PRESS_MAX = 100
+PRESS_MAX = 1000
 PRESS_MIN = 0
 
 def rand_val():
