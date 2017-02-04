@@ -19,7 +19,7 @@ class Recorder(object):
             class_name = gesture.judge()
             if class_name != 'Recorder':
                 break
-            #sleep(1)
+            sleep(0.05)
 
     def action(self):
         print('record action')
@@ -45,7 +45,8 @@ class Recorder(object):
 
         stream.start_stream()
 
-        self.judge_finish()
+        # self.judge_finish()
+        sleep(5)
         
         stream.stop_stream()
         stream.close()
