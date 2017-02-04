@@ -9,7 +9,10 @@ def judge(sensor_values):
     センサーの値からジェスチャーを判定
     判定されたジェスチャーのクラス名かNoneを返す
     '''
-    if sensor_values[0] >= THRESHOLD and sensor_values[1] < THRESHOLD:
+    if sensor_values[0] == 1 or sensor_values[1] == 1:
+        # 1は誤作動なので例外
+        return None
+    elif sensor_values[0] >= THRESHOLD and sensor_values[1] < THRESHOLD:
         return 'BoneSound'
     elif sensor_values[0] < THRESHOLD and sensor_values[1] >= THRESHOLD:
         return 'Camera'
