@@ -22,6 +22,7 @@ class Camera(object):
         # APIインスタンスを作成
         self.api = tweepy.API(self.auth)
 
+        self.dst_filename = ""
         # これだけで、Twitter APIをPythonから操作するための準備は完了。
         print('Auth Done!')
 
@@ -33,11 +34,8 @@ class Camera(object):
         
         try:
             camera = picamera.PiCamera()
-            camera.capture(os.path.abspath(os.path.dirname(__file__)) 
-                + '/../../resource/camera/'
-                + date
-                + '.jpg'
-                )
+            self.dst_filename = os.path.abspath(os.path.dirname(__file__)) + '/../../resource/camera/' + date + '.jpg'
+            camera.capture(self.dst_filename)
             camera.close()
         except Exception as e:
             print(e, 'error occurred')
@@ -46,7 +44,7 @@ class Camera(object):
 
     def tweet(self):
         # 内容の決定
-        img_filename = os.path.abspath(os.path.dirname(__file__)) + '/../../resource/camera/test.jpg'
+        img_filename = self.dst_filename
         message = "HACK TIME!!\n" + datetime.now().strftime('%Y/%m/%d %p%I:%M')
 
         # 投稿
@@ -54,6 +52,7 @@ class Camera(object):
             filename = img_filename,
             status = message)
 
+        os.remove(self.dst_filename)
         print("Tweeted")
 
 def main():
