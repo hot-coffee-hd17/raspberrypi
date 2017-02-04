@@ -38,11 +38,6 @@ class Recorder(object):
 
         input_device_index = 2
         
-        print(p.get_format_from_width(self.wf.getsampwidth()))
-        print(pyaudio.paInt16)
-        print(self.wf.getnchannels())
-        print(self.wf.getframerate())
-
         stream = p.open(
             format = p.get_format_from_width(self.wf.getsampwidth()),
             channels = self.wf.getnchannels(),
