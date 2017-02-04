@@ -39,6 +39,9 @@ pyenv virtualenv
 
 ### 今回の開発環境のセットアップ
 ```sh
+# 予めひつようなものを入れる
+brew install portaudio
+
 git clone git@github.com:hot-coffee-hd17/raspberrypi.git
 cd raspberrypi
 
