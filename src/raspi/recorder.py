@@ -36,7 +36,7 @@ class Recorder(object):
 
         p = pyaudio.PyAudio()
 
-        input_device_index = 2
+        input_device_index = 0
         
         print(p.get_format_from_width(self.wf.getsampwidth()))
         print(pyaudio.paInt16)
