@@ -17,20 +17,18 @@ def rand_val():
 
 
 def from_sensors():
+    spi = spidev.SpiDev()
+    spi.open(0, 0)
+
     # 人差し指
-    spi1 = spidev.SpiDev()
-    spi1.open(0, 0)
-    res1 = spi1.xfer2([0x68, 0x00])
+    res1 = spi.xfer2([0x68, 0x00])
     val1 = (res1[0] * 256 + res1[1]) & 0x3ff
 
-    # # 小指
-    # spi2 = spidev.SpiDev()
-    # spi2.open(0, 0)
-    # res2 = spi2.xfer2([0x68, 0x00])
-    # val2 = (res1[0] * 256 + res2[1]) & 0x3ff
-    from random import randint
-    val2 = randint(PRESS_MIN, PRESS_MAX)
+    # 小指
+    res2 = spi.xfer2([0x78, 0x00])
+    val2 = (res2[0] * 256 + res2[1]) & 0x3ff
     
+    spi.close()
     return np.array([val1, val2])
 
 
