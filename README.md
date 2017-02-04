@@ -77,6 +77,17 @@ pip install -r requirements.txt
 - requirements.txt ... Pythonのモジュール管理
 ```
 
+## 上位ディレクトリのimportについて
+例えば、`src/raspi/`上のスクリプトから、`src/no_raspi/`上のスクリプトをimportしたい場合は、下記をスクリプトの先頭に記述する。
+```python
+# この2行を記述（pathを追加している）
+import sys,os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# importできるようになる
+from no_raspi import sample
+```
+
 ## 参考にしたページ
 pyenvとvirtualenvで環境構築 - Qiita  
 http://qiita.com/Kodaira_/items/feadfef9add468e3a85b
