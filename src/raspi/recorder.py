@@ -31,7 +31,7 @@ class Recorder(object):
 
         self.wf = wave.open(os.path.abspath(os.path.dirname(__file__)) + '/../../resource/record.wav', 'w')
         self.wf.setsampwidth(2)
-        self.wf.setframerate(16000)
+        self.wf.setframerate(44100)
         self.wf.setnchannels(1)
 
         p = pyaudio.PyAudio()
@@ -42,7 +42,7 @@ class Recorder(object):
             format = p.get_format_from_width(self.wf.getsampwidth()),
             channels = self.wf.getnchannels(),
             rate = self.wf.getframerate(),
-            #input_device_index = input_device_index,
+            input_device_index = input_device_index,
             input = True,
             stream_callback = self.callback
             )
