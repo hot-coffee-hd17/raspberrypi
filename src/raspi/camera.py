@@ -9,6 +9,7 @@ try:
 except Exception:
     print('no raspi.');
 from raspi import gesture
+from raspi.led import LED
 
 class Camera(object):
     def __init__(self):
@@ -28,23 +29,32 @@ class Camera(object):
         # これだけで、Twitter APIをPythonから操作するための準備は完了。
         print('Auth Done!')
 
+        self.led = LED()
+
     def action(self):
         print('Camera action')
         
-        # TODO 青LED点滅開始
-
         # 3秒数える
         for i in range(60):
+            if i in [0, 20, 40, 60]:
+                self.led.blue_led_on()
+            elif i in [10, 30, 50]:
+                self.led.blue_led_off()
+
             # ジェスチャー取得
             class_name = gesture.judge()
             # カメラのジェスチャーでなくなったらLED消灯して終了
             if class_name != 'Camera':
-                # TODO 青LED消灯
+                # 青LED消灯
+                self.led.blue_led_off()
+                self.led.cleanup()
                 return
 
             sleep(0.05)
         
-        # TODO 青LEDを消灯、赤LED点灯
+        # 青LEDを消灯、赤LED点灯
+        self.led.blue_led_off()
+        self.led.red_led_on()
         
         print('capture')
 
@@ -60,14 +70,18 @@ class Camera(object):
         except Exception as e:
             print(e, 'error occurred')
         
-        # TODO 赤消灯、青点灯
+        # 赤消灯、青点灯
+        self.led.red_led_off()
+        self.led.blue_led_on()
         
         print('captured')
 
         # ツイート
         self.tweet()
 
-        # TODO 青消灯
+        # 青消灯
+        self.led.blue_led_off()
+        self.led.cleanup()
 
     def tweet(self):
         # 内容の決定

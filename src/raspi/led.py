@@ -1,33 +1,34 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import RPi.GPIO as RED_LED_GPIO
-import RPi.GPIO as BLUE_LED_GPIO
+import RPi.GPIO as GPIO
 
 class LED:
     def __init__(self):
-        self.RED_LED_GPIO_PIN = 10
-        self.BLUE_LED_GPIO_PIN = 11
+        self.RED_LED_GPIO_PIN = 24
+        self.BLUE_LED_GPIO_PIN = 18
 
-        RED_LED_GPIO.setmode(RED_LED_GPIO.BCM)
-        BLUE_LED_GPIO.setmode(BLUE_LED_GPIO.BCM)
-        RED_LED_GPIO.setup(self.RED_LED_GPIO_PIN, RED_LED_GPIO.OUT)
-        BLUE_LED_GPIO.setup(self.BLUE_LED_GPIO_PIN, BLUE_LED_GPIO.OUT)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.RED_LED_GPIO_PIN, GPIO.OUT)
+        GPIO.setup(self.BLUE_LED_GPIO_PIN, GPIO.OUT)
 
     def red_led_on(self):
-        RED_LED_GPIO.output(self.RED_LED_GPIO_PIN, RED_LED_GPIO.HIGH)
+        GPIO.output(self.RED_LED_GPIO_PIN, GPIO.HIGH)
 
     def red_led_off(self):
-        RED_LED_GPIO.output(self.RED_LED_GPIO_PIN, RED_LED_GPIO.OUT)
+        GPIO.output(self.RED_LED_GPIO_PIN, GPIO.OUT)
 
     def red_led_flash(self):
-        RED_LED_GPIO.output(self.RED_LED_GPIO_PIN, RED_LED_GPIO.LOW)
+        GPIO.output(self.RED_LED_GPIO_PIN, GPIO.LOW)
 
     def blue_led_on(self):
-        BLUE_LED_GPIO.output(self.BLUE_LED_GPIO_PIN, BLUE_LED_GPIO.HIGH)
+        GPIO.output(self.BLUE_LED_GPIO_PIN, GPIO.HIGH)
 
     def blue_led_off(self):
-        BLUE_LED_GPIO.output(self.BLUE_LED_GPIO_PIN, BLUE_LED_GPIO.OUT)
+        GPIO.output(self.BLUE_LED_GPIO_PIN, GPIO.OUT)
 
     def blue_led_flash(self):
-        BLUE_LED_GPIO.output(self.BLUE_LED_GPIO_PIN, BLUE_LED_GPIO.LOW)
+        GPIO.output(self.BLUE_LED_GPIO_PIN, GPIO.LOW)
+
+    def cleanup(self):
+        GPIO.cleanup()

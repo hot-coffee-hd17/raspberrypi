@@ -13,6 +13,7 @@ def judge():
     '''
     # センサの値取得
     sensor_values = sensor.get_values()
+    print(sensor_values)
 
     if sensor_values[0] == 1 or sensor_values[1] == 1:
         # 1は誤作動なので例外
