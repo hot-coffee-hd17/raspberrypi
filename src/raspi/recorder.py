@@ -40,8 +40,10 @@ class Recorder(object):
         print ("recording...")
 
         frames = []
-        for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-            print(i)
+        while True:
+            class_name = gesture.judge()
+            if class_name != 'Recorder':
+                break
             data = stream.read(CHUNK)
             frames.append(data)
         print ("finished recording")
