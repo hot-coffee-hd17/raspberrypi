@@ -40,7 +40,7 @@ class Recorder(object):
 
         stream = p.open(
             format = p.get_format_from_width(self.wf.getsampwidth()),
-            channels = 1,
+            channels = 0,
             rate = self.wf.getframerate(),
             input_device_index = input_device_index,
             input = True,
