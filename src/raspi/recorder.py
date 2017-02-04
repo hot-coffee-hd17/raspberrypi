@@ -41,6 +41,7 @@ class Recorder(object):
 
         frames = []
         for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+            print(i)
             data = stream.read(CHUNK)
             frames.append(data)
         print ("finished recording")
