@@ -45,6 +45,7 @@ class Camera(object):
             if class_name != 'Camera':
                 # 青LED消灯
                 self.led.blue_led_off()
+                self.led.cleanup()
                 return
 
             sleep(0.05)
@@ -78,6 +79,7 @@ class Camera(object):
 
         # 青消灯
         self.led.blue_led_off()
+        self.led.cleanup()
 
     def tweet(self):
         # 内容の決定
