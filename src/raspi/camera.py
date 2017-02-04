@@ -38,8 +38,9 @@ class Camera(object):
                 + date
                 + '.jpg'
                 )
-        except Exception:
-            pass
+            camera.close()
+        except Exception as e:
+            print(e, 'error occurred')
 
         self.tweet()
 
