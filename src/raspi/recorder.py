@@ -3,6 +3,7 @@
 import pyaudio
 import wave
 import os
+from time import sleep
 from raspi import sensor
 
 class Recorder(object):
@@ -15,16 +16,10 @@ class Recorder(object):
 
     def judge_finish(self):
         while True:
-            # センサの値取得
-            sensor_values = sensor.get_values()
-            
-            # 終了ジェスチャーを検知
-            # TODO ここに終了を検知するコードを追加
-            break
-
-        # 今は3秒スリープするだけ
-        import time
-        time.sleep(3)
+            class_name = gesture.judge()
+            if class_name != 'Recorder':
+                break
+            sleep(0.05)
 
     def action(self):
         print('record action')
