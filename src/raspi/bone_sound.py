@@ -4,6 +4,8 @@
 import wave
 import pyaudio
 import time
+from raspi import gesture
+from raspi import led
 
 import sys,os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -14,6 +16,9 @@ class BoneSound :
         self.CHUNK = 1024
         self.FILENAME = os.path.abspath(os.path.dirname(__file__)) + '/../../resource/record.wav'
         self.wf = wave.open(self.FILENAME, "rb")
+
+        # LED用の設定
+        self.led_instance = LED()
 
         # PyAudioのインスタンスを生成
         self.pyaudio_instance = pyaudio.PyAudio()
@@ -30,18 +35,22 @@ class BoneSound :
             rate=self.wf.getframerate(),
             output=True)
 
-  # play sound
-  def action(self):
-      print("Sound Playing")
-      # データを1度に1024個読み取る
-      data = self.wf.readframes(self.CHUNK)
+    # play sound
+    def action(self):
+        self.led_instance.blue_led_on()
+        print("Sound Playing")
+        # データを1度に1024個読み取る
+        data = self.wf.readframes(self.CHUNK)
 
-      # 実行
-      while data != b'':
-          self.stream.write(data)
-          data = self.wf.readframes(self.CHUNK)
+        # 実行
+        while data != b'':
+            if gesture.judge() != 'Camera':
+                break
+            self.stream.write(data)
+            data = self.wf.readframes(self.CHUNK)
 
-      self.stream.stop_stream()
-      self.stream.close()
+        self.stream.stop_stream()
+        self.stream.close()
 
-      self.pyaudio_instance.terminate()
+        self.pyaudio_instance.terminate()
+        self.led_instance.blue_led_off()
