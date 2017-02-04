@@ -38,7 +38,7 @@ class Recorder(object):
             channels = self.wf.getnchannels(),
             rate = self.wf.getframerate(),
             input_device_index = input_device_index,
-            frames_per_buffer=1024,
+            # frames_per_buffer=1024,
             input = True,
             stream_callback = self.callback
             )
