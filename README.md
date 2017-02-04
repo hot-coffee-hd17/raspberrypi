@@ -69,6 +69,14 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
+## ディレクトリ構成
+```
+- src
+  - raspi          ... ラズパイでしか動作しないコード群
+  - no_raspi       ... ラズパイでなくても動作するコード群
+- requirements.txt ... Pythonのモジュール管理
+```
+
 ## 参考にしたページ
 pyenvとvirtualenvで環境構築 - Qiita  
 http://qiita.com/Kodaira_/items/feadfef9add468e3a85b
