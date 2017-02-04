@@ -4,7 +4,7 @@ import pyaudio
 import wave
 import os
 from time import sleep
-from raspi import sensor
+from raspi import gesture
 
 class Recorder(object):
     def __init__(self):
