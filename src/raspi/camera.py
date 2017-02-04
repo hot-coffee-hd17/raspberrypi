@@ -3,10 +3,12 @@
 from datetime import datetime
 import os
 import tweepy
+from time import sleep
 try:
     import picamera
 except Exception:
     print('no raspi.');
+#import gesture
 
 class Camera(object):
     def __init__(self):
@@ -28,10 +30,22 @@ class Camera(object):
 
     def action(self):
         print('Camera Captured')
+        
+        # TODO 青LED点滅開始
+
+        # 3秒数える
+        for i in range(60):
+            # TODO ジェスチャー取得
+            # TODO カメラのジェスチャーでなくなったらLED消灯して終了
+
+            sleep(0.05)
+        
+        # TODO 青LEDを消灯、赤LED点灯
 
         # 現在時刻取得（画像ファイル名に利用）
         date = datetime.now().strftime('%Y%m%d-%H%M%S')
         
+        # カメラ撮影
         try:
             camera = picamera.PiCamera()
             self.dst_filename = os.path.abspath(os.path.dirname(__file__)) + '/../../resource/camera/' + date + '.jpg'
@@ -39,8 +53,13 @@ class Camera(object):
             camera.close()
         except Exception as e:
             print(e, 'error occurred')
-
+        
+        # TODO 赤消灯、青点灯
+        
+        # ツイート
         self.tweet()
+
+        # TODO 青消灯
 
     def tweet(self):
         # 内容の決定
