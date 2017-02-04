@@ -34,11 +34,13 @@ class Camera(object):
     def action(self):
         print('Camera action')
         
-        # 青LED点滅開始
-        self.led.blue_led_flash()
-
         # 3秒数える
         for i in range(60):
+            if i in [0, 20, 40, 60]:
+                self.led.blue_led_on()
+            elif i in [10, 30, 50]:
+                self.led.blue_led_off()
+
             # ジェスチャー取得
             class_name = gesture.judge()
             # カメラのジェスチャーでなくなったらLED消灯して終了
