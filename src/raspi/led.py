@@ -5,7 +5,7 @@ import RPi.GPIO as GPIO
 
 class LED:
     def __init__(self):
-        self.RED_LED_GPIO_PIN = 10
+        self.RED_LED_GPIO_PIN = 24
         self.BLUE_LED_GPIO_PIN = 18
 
         GPIO.setmode(GPIO.BCM)
@@ -29,3 +29,6 @@ class LED:
 
     def blue_led_flash(self):
         GPIO.output(self.BLUE_LED_GPIO_PIN, GPIO.LOW)
+
+    def cleanup(self):
+        GPIO.cleanup()
