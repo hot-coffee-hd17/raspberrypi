@@ -40,7 +40,7 @@ def get_values():
         pressure = from_sensors()
     except Exception:
         pressure = rand_val()
-
+    
     # 正規化して返す
     return list((pressure - PRESS_MIN) / (PRESS_MAX - PRESS_MIN))
 
