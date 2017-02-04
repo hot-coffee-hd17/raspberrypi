@@ -1,14 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from raspi import sensor
+
 # この値以上なら握っているとみなす
 THRESHOLD = 0.7
 
-def judge(sensor_values):
+def judge():
     '''
     センサーの値からジェスチャーを判定
     判定されたジェスチャーのクラス名かNoneを返す
     '''
+    # センサの値取得
+    sensor_values = sensor.get_values()
+
     if sensor_values[0] == 1 or sensor_values[1] == 1:
         # 1は誤作動なので例外
         return None
