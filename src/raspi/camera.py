@@ -25,6 +25,7 @@ class Camera(object):
                 + date
                 + '.jpg'
                 )
+            camera.close()
         except Exception:
             pass
 
