@@ -24,32 +24,63 @@ class Recorder(object):
     def action(self):
         print('record action')
 
-        self.wf = wave.open(os.path.abspath(os.path.dirname(__file__)) + '/../../resource/record.wav', 'w')
-        self.wf.setsampwidth(2)
-        self.wf.setframerate(44100)
-        self.wf.setnchannels(1)
+        FORMAT = pyaudio.paInt16
+        CHANNELS = 1        #モノラル
+        RATE = 44100        #サンプルレート
+        CHUNK = 2**11       #データ点数
+        RECORD_SECONDS = 5 #録音する時間の長さ
+        WAVE_OUTPUT_FILENAME = os.path.abspath(os.path.dirname(__file__)) + '/../../resource/record.wav'
 
-        p = pyaudio.PyAudio()
+        audio = pyaudio.PyAudio()
 
-        input_device_index = 2
-        
-        stream = p.open(
-            format = p.get_format_from_width(self.wf.getsampwidth()),
-            channels = self.wf.getnchannels(),
-            rate = self.wf.getframerate(),
-            input_device_index = input_device_index,
-            # frames_per_buffer=1024,
-            input = True,
-            stream_callback = self.callback
-            )
+        stream = audio.open(format=FORMAT, channels=CHANNELS,
+                        rate=RATE, input=True,
+                        input_device_index=2,   #デバイスのインデックス番号
+                        frames_per_buffer=CHUNK)
+        print ("recording...")
 
-        stream.start_stream()
+        frames = []
+        for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+            data = stream.read(CHUNK)
+            frames.append(data)
+        print ("finished recording")
 
-        # self.judge_finish()
-        sleep(5)
-        
         stream.stop_stream()
         stream.close()
+        audio.terminate()
 
-        p.terminate()
-        self.wf.close()
+        waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+        waveFile.setnchannels(CHANNELS)
+        waveFile.setsampwidth(audio.get_sample_size(FORMAT))
+        waveFile.setframerate(RATE)
+        waveFile.writeframes(b''.join(frames))
+        waveFile.close()
+
+        # self.wf = wave.open(os.path.abspath(os.path.dirname(__file__)) + '/../../resource/record.wav', 'w')
+        # self.wf.setsampwidth(2)
+        # self.wf.setframerate(44100)
+        # self.wf.setnchannels(1)
+        #
+        # p = pyaudio.PyAudio()
+        #
+        # input_device_index = 2
+        #
+        # stream = p.open(
+        #     format = p.get_format_from_width(self.wf.getsampwidth()),
+        #     channels = self.wf.getnchannels(),
+        #     rate = self.wf.getframerate(),
+        #     input_device_index = input_device_index,
+        #     frames_per_buffer=1024,
+        #     input = True,
+        #     stream_callback = self.callback
+        #     )
+        #
+        # stream.start_stream()
+        #
+        # self.judge_finish()
+        #
+        # stream.stop_stream()
+        # stream.close()
+        #
+        # p.terminate()
+        # self.wf.close()
