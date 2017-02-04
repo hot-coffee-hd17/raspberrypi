@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from datetime import datetime
+from pytz import timezone
 import os
 import tweepy
 from time import sleep
@@ -49,7 +50,7 @@ class Camera(object):
         print('capture')
 
         # 現在時刻取得（画像ファイル名に利用）
-        date = datetime.now().strftime('%Y%m%d-%H%M%S')
+        date = datetime.now(timezone('Asia/Tokyo')).strftime('%Y%m%d-%H%M%S')
         
         # カメラ撮影
         try:
@@ -72,7 +73,7 @@ class Camera(object):
     def tweet(self):
         # 内容の決定
         img_filename = self.dst_filename
-        message = "HACK TIME!!\n" + datetime.now().strftime('%Y/%m/%d %p%I:%M')
+        message = "HACK TIME!!\n" + datetime.now(timezone('Asia/Tokyo')).strftime('%Y/%m/%d %p%I:%M')
 
         # 投稿
         self.api.update_with_media(
