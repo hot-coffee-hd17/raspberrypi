@@ -23,14 +23,14 @@ def main():
 
         # ジェスチャー判定
         class_name = gesture.judge(sensor_values)
-        
+        print('** ' ,sensor_values, class_name)
+
         # ジェスチャーであると判定されたら対応するアクション実行
         if class_name is not None:
             mod = __import__('raspi.' + to_snakecase(class_name), fromlist=[class_name])
             instance = getattr(mod, class_name)()
             instance.action()
 
-        print('wait')
         time.sleep(FRAME_RATE)
 
 

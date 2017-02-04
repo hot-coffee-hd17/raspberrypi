@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import picamera
 from datetime import datetime
 import os
+try:
+    import picamera
+except Exception:
+    print('no raspi.');
+
 
 class Camera(object):
     def __init__(self):
@@ -14,12 +18,15 @@ class Camera(object):
         # 現在時刻取得（画像ファイル名に利用）
         date = datetime.now().strftime('%Y%m%d-%H%M%S')
         
-        camera = picamera.PiCamera()
-        camera.capture(os.path.abspath(os.path.dirname(__file__)) 
-            + '/../../resource/camera/'
-            + date
-            + '.jpg'
-            )
+        try:
+            camera = picamera.PiCamera()
+            camera.capture(os.path.abspath(os.path.dirname(__file__)) 
+                + '/../../resource/camera/'
+                + date
+                + '.jpg'
+                )
+        except Exception:
+            pass
 
 
 def main():
