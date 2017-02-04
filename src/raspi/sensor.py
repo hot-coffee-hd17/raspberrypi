@@ -37,7 +37,7 @@ def get_values():
     全てのセンサーから値を取得して返す
     人差し指・小指の順
     '''
-    pressure = rand_val()
+    pressure = from_sensors()
 
     # 正規化して返す
     return list((pressure - PRESS_MIN) / (PRESS_MAX - PRESS_MIN))
