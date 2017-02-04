@@ -44,7 +44,7 @@ class BoneSound :
 
         # 実行
         while data != b'':
-            if gesture.judge() != 'Camera':
+            if gesture.judge() != 'BoneSound':
                 break
             self.stream.write(data)
             data = self.wf.readframes(self.CHUNK)
