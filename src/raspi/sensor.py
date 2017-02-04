@@ -26,10 +26,10 @@ def from_sensors():
     # spi2.open(0, 0)
     # res2 = spi2.xfer2([0x68, 0x00])
     # val2 = (res1[0] * 256 + res2[1]) & 0x3ff
-    #
-    # return np.array([val1, val2])
-
-    return np.array([val1, val1])
+    from random import ranint
+    val2 = randint(PRESS_MIN, PRESS_MAX)
+    
+    return np.array([val1, val2])
 
 
 def get_values():
