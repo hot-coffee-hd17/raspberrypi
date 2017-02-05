@@ -14,7 +14,8 @@ class BoneSound :
     def __init__(self):
         # チャンク数を指定
         self.CHUNK = 1024
-        self.FILENAME = os.path.abspath(os.path.dirname(__file__)) + '/../../resource/decision1.wav'
+        # self.FILENAME = os.path.abspath(os.path.dirname(__file__)) + '/../../resource/decision1.wav'
+        self.FILENAME = '/home/pi/koi.wav'
         self.wf = wave.open(self.FILENAME, "rb")
 
         # LED用の設定
