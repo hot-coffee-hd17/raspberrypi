@@ -35,7 +35,7 @@ class Camera(object):
         print('Camera action')
         
         # 3秒数える
-        for i in range(60):
+        for i in range(15):
             if i in [0, 20, 40, 60]:
                 self.led.blue_led_on()
             elif i in [10, 30, 50]:
@@ -50,7 +50,7 @@ class Camera(object):
                 self.led.cleanup()
                 return
 
-            sleep(0.05)
+            sleep(0.2)
         
         # 青LEDを消灯、赤LED点灯
         self.led.blue_led_off()
