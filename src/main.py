@@ -6,7 +6,7 @@ import re
 from raspi import gesture
 
 # 何秒毎にセンサーをチェックするか
-FRAME_RATE = 0.05
+FRAME_RATE = 0.2
 
 def to_snakecase(str):
     ret = re.sub(r'([\s|A-Z])', "_\\1", str)
