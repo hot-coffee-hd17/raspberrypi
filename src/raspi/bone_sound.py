@@ -14,11 +14,11 @@ class BoneSound :
     def __init__(self):
         # チャンク数を指定
         self.CHUNK = 1024
-        self.FILENAME = os.path.abspath(os.path.dirname(__file__)) + '/../../resource/record.wav'
+        self.FILENAME = os.path.abspath(os.path.dirname(__file__)) + '/../../resource/decision1.wav'
         self.wf = wave.open(self.FILENAME, "rb")
 
         # LED用の設定
-        self.led_instance = LED()
+        self.led_instance = led.LED()
 
         # PyAudioのインスタンスを生成
         self.pyaudio_instance = pyaudio.PyAudio()
