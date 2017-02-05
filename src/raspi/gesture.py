@@ -19,11 +19,11 @@ def judge():
     if sensor_values[0] == 1 or sensor_values[1] == 1:
         # 1は誤作動なので例外
         return None
-    elif sensor_values[0] >= THRES_HITOSASHI and sensor_values[1] < THRES_KOYUBI:
-        return 'BoneSound'
+    # elif sensor_values[0] >= THRES_HITOSASHI and sensor_values[1] < THRES_KOYUBI:
+    #     return 'BoneSound'
     elif sensor_values[0] < THRES_HITOSASHI and sensor_values[1] >= THRES_KOYUBI:
         return 'Camera'
-    elif sensor_values[0] >= THRES_HITOSASHI and sensor_values[1] >= THRES_KOYUBI:
-        return 'Recorder'
+    # elif sensor_values[0] >= THRES_HITOSASHI and sensor_values[1] >= THRES_KOYUBI:
+    #     return 'Recorder'
     else:
         return None
