@@ -26,7 +26,6 @@ class Recorder(object):
         print('record action')
 
         led = LED()
-        led.red_led_on()
 
         FORMAT = pyaudio.paInt16
         CHANNELS = 1        #モノラル
@@ -45,9 +44,17 @@ class Recorder(object):
 
         frames = []
         while True:
+            # パーにしたら録音終了
             class_name = gesture.judge()
             if class_name == None:
                 break
+            
+            # LEDの点滅
+            if len(frames) % 100 == 0:
+                led.red_led_on()
+            elif len(frames) % 100 == 50:
+                led.red_led_off()
+            
             data = stream.read(CHUNK)
             frames.append(data)
         print ("finished recording")
