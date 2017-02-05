@@ -44,7 +44,7 @@ class BoneSound :
 
         # 実行
         while data != b'':
-            if gesture.judge() != 'BoneSound':
+            if gesture.judge() is None:
                 break
             self.stream.write(data)
             data = self.wf.readframes(self.CHUNK)
@@ -54,3 +54,4 @@ class BoneSound :
 
         self.pyaudio_instance.terminate()
         self.led_instance.blue_led_off()
+        self.led_instance.cleanup()
