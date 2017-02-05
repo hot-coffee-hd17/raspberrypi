@@ -4,8 +4,8 @@
 from raspi import sensor
 
 # この値以上なら握っているとみなす
-THRES_KOYUBI = 0.5
-THRES_HITOSASHI = 0.7
+THRES_KOYUBI = 0.1
+THRES_HITOSASHI = 0.2
 
 def judge():
     '''
