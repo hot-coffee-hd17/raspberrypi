@@ -16,13 +16,16 @@ class BoneSound :
         self.CHUNK = 1024
         # self.FILENAME = os.path.abspath(os.path.dirname(__file__)) + '/../../resource/decision1.wav'
         self.FILENAME = '/home/pi/koi.wav'
-        self.wf = wave.open(self.FILENAME, "rb")
+
+    # play sound
+    def action(self):
+        wf = wave.open(self.FILENAME, "rb")
 
         # LED用の設定
-        self.led_instance = led.LED()
+        led_instance = led.LED()
 
         # PyAudioのインスタンスを生成
-        self.pyaudio_instance = pyaudio.PyAudio()
+        pyaudio_instance = pyaudio.PyAudio()
         # Streamを生成
         """
          format: ストリームを読み書きする際のデータ型
@@ -30,29 +33,27 @@ class BoneSound :
          rate: サンプル周波数
          output: 出力モード
         """
-        self.stream = self.pyaudio_instance.open(
-            format=self.pyaudio_instance.get_format_from_width(self.wf.getsampwidth()),
-            channels=self.wf.getnchannels(),
-            rate=self.wf.getframerate(),
+        stream = pyaudio_instance.open(
+            format=pyaudio_instance.get_format_from_width(wf.getsampwidth()),
+            channels=wf.getnchannels(),
+            rate=wf.getframerate(),
             output=True)
 
-    # play sound
-    def action(self):
-        self.led_instance.blue_led_on()
+        led_instance.blue_led_on()
         print("Sound Playing")
         # データを1度に1024個読み取る
-        data = self.wf.readframes(self.CHUNK)
+        data = wf.readframes(self.CHUNK)
 
         # 実行
         while data != b'' or data is None:
             if gesture.judge() is None:
                 break
-            self.stream.write(data)
-            data = self.wf.readframes(self.CHUNK)
+            stream.write(data)
+            data = wf.readframes(self.CHUNK)
 
-        self.stream.stop_stream()
-        self.stream.close()
+        stream.stop_stream()
+        stream.close()
 
-        self.pyaudio_instance.terminate()
-        self.led_instance.blue_led_off()
-        self.led_instance.cleanup()
+        pyaudio_instance.terminate()
+        led_instance.blue_led_off()
+        led_instance.cleanup()
